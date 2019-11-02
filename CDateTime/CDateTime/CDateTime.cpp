@@ -71,7 +71,7 @@ void CDateTime::DateTimeDShow()
 		if (_kbhit())
 		{
 			//ESC
-			int val = getch();
+			int val = _getch();
 			if (val == ESC)
 				break;
 		}
@@ -172,7 +172,7 @@ CDateTime CDateTime::NextDateTime(int n)  //10
 	return CDateTime(y, m, d, m_time.hour, m_time.minute, m_time.second);
 }
 
-CDateTime CDateTime::PrevDateTime(int n)
-{
-	//
-}
+//CDateTime CDateTime::PrevDateTime(int n)
+//{
+//	//
+//}

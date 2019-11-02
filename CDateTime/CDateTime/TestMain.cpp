@@ -1,18 +1,18 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include"CDateTime.h"
 
-void main()
-{
-	CDateTime dt;
-	dt.GetCurDateTime();
-	dt.DateTimeShow();
+//void main()
+//{
+//	CDateTime dt;
+//	dt.GetCurDateTime();
+//	dt.DateTimeShow();
+//
+//	CDateTime tmp = dt.NextDateTime(100);
+//	tmp.DateTimeShow();
+//
+//}
 
-	CDateTime tmp = dt.NextDateTime(100);
-	tmp.DateTimeShow();
 
-}
-
-/*
 int main()
 {
 CDateTime dt;
@@ -42,4 +42,3 @@ break;
 }
 return 0;
 }
-*/
