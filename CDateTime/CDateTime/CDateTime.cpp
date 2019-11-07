@@ -144,7 +144,7 @@ int CDateTime::GetWeekByYMD(int year, int month, int day)
 	}
 	count += day;
 
-	//²ÌÀÕ¹«Ê½
+	
 	int x = (year - 1) + (year - 1) / 4 - (year - 1) / 100 + (year - 1) / 400 + count;
 	return x % 7;
 }
