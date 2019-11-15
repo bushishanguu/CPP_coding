@@ -108,22 +108,83 @@ using namespace std;
 //}
 
 
+//int main()
+//{
+//	vector<int> myvector;
+//	for (int i = 1; i < 10; i++)
+//	{
+//		myvector.push_back(i);
+//
+//		myvector.resize(5);
+//		myvector.resize(8, 100);
+//		myvector.resize(12);
+//
+//		cout << "myvector contains:";
+//		for (int i = 0; i < myvector.size(); i++)
+//			cout << ' ' << myvector[i];
+//		cout << '\n';
+//		system("pause");
+//		return 0;
+//	}
+//}
+
+
+//vectorÔöÉ¾¸Ä²é
+
+//push_back
+//pop_back
+
+
+//int main()
+//{
+//	int a[] = { 1, 2, 3, 4 };
+//	vector<int> v(a, a + sizeof(a) / sizeof(int));
+//	vector<int>::iterator it = v.begin();
+//	while (it != v.end())
+//	{
+//		cout << *it << " ";
+//		++it;
+//	}
+//	cout << endl;
+//
+//	v.pop_back();
+//	v.pop_back();
+//	it = v.begin();
+//	while (it != v.end())
+//	{
+//		cout << *it << " ";
+//		++it;
+//	}
+//	cout << endl;
+//	system("pause");
+//	return 0;
+//}
+
+#include<algorithm>
 int main()
 {
-	vector<int> myvector;
-	for (int i = 1; i < 10; i++)
+	int a[] = { 1, 2, 3, 4 };
+	vector<int> v(a, a + sizeof(a) / sizeof(int));
+	vector<int>::iterator pos = find(v.begin(), v.end(), 3);
+
+	v.insert(pos, 30);
+	vector<int>::iterator it = v.begin();
+	while (it != v.end())
 	{
-		myvector.push_back(i);
-
-		myvector.resize(5);
-		myvector.resize(8, 100);
-		myvector.resize(12);
-
-		cout << "myvector contains:";
-		for (int i = 0; i < myvector.size(); i++)
-			cout << ' ' << myvector[i];
-		cout << '\n';
-		system("pause");
-		return 0;
+		cout << *it << " ";
+		++it;
 	}
+	cout << endl;
+
+	pos = find(v.begin(), v.end(), 3);
+	v.erase(pos);
+	it = v.begin();
+	while (it != v.end())
+	{
+		cout << *it << " ";
+		++it;
+	}
+	cout << endl;
+	system("pause");
+	return 0;
 }
