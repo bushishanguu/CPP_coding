@@ -159,32 +159,70 @@ using namespace std;
 //	system("pause");
 //	return 0;
 //}
+//
 
-#include<algorithm>
+
+
+//#include<algorithm>
+//int main()
+//{
+//	int a[] = { 1, 2, 3, 4 };
+//	vector<int> v(a, a + sizeof(a) / sizeof(int));
+//	vector<int>::iterator pos = find(v.begin(), v.end(), 3);
+//
+//	v.insert(pos, 30);
+//	vector<int>::iterator it = v.begin();
+//	while (it != v.end())
+//	{
+//		cout << *it << " ";
+//		++it;
+//	}
+//	cout << endl;
+//
+//	pos = find(v.begin(), v.end(), 3);
+//	v.erase(pos);
+//	it = v.begin();
+//	while (it != v.end())
+//	{
+//		cout << *it << " ";
+//		++it;
+//	}
+//	cout << endl;
+//	system("pause");
+//	return 0;
+//}
+
+
+//vector[]+index 和C++11中vector的新式for+auto的遍历
+//vector 使用这两种遍历方式是比较方便便捷的
+
 int main()
 {
 	int a[] = { 1, 2, 3, 4 };
-	vector<int> v(a, a + sizeof(a) / sizeof(int));
-	vector<int>::iterator pos = find(v.begin(), v.end(), 3);
+	vector<int> v(a, a + a + sizeof(a) / sizeof(int));
+	//通过[]读写第0个位置
+	v[0] = 10;
+	cout << v[0] << endl;
+	//通过[i]的方式遍历vector
+	for (size_t i = 0; i < v.size(); ++i)
+	
+		cout << v[i] << ' ';
+		cout << endl;
+		vector<int>swapv;
+		swapv.swap(v);
+		cout << "v data :";
+		for (size_t i = 0; i < v.size(); ++i)
+			cout << v[i] << " ";
+		cout << endl;
 
-	v.insert(pos, 30);
-	vector<int>::iterator it = v.begin();
-	while (it != v.end())
-	{
-		cout << *it << " ";
-		++it;
-	}
-	cout << endl;
+		cout << "swapv data";
+		for (size_t i = 0; i < v.size(); ++i)
+			cout << swapv[i] << " ";
+		cout << endl;
 
-	pos = find(v.begin(), v.end(), 3);
-	v.erase(pos);
-	it = v.begin();
-	while (it != v.end())
-	{
-		cout << *it << " ";
-		++it;
-	}
-	cout << endl;
-	system("pause");
-	return 0;
+		for (auto x : v)
+			cout << x << " ";
+		cout << endl;
+		system("pause");
+		return 0;
 }

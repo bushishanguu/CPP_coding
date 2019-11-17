@@ -1,10 +1,22 @@
-﻿生成启动时间为 2019/11/15 23:27:08。
+﻿生成启动时间为 2019/11/16 18:04:55。
      1>项目“G:\github\CPP_coding\vector练习\vector练习\vector练习.vcxproj”在节点 2 上(Build 个目标)。
-     1>Link:
-         E:\VS\VS安装地址\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"G:\github\CPP_coding\vector练习\Debug\vector练习.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"G:\github\CPP_coding\vector练习\Debug\vector练习.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"G:\github\CPP_coding\vector练习\Debug\vector练习.lib" /MACHINE:X86 Debug\test.obj
-         vector练习.vcxproj -> G:\github\CPP_coding\vector练习\Debug\vector练习.exe
-     1>已完成生成项目“G:\github\CPP_coding\vector练习\vector练习\vector练习.vcxproj”(Build 个目标)的操作。
+     1>ClCompile:
+         E:\VS\VS安装地址\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt test.cpp
+         test.cpp
+     1>g:\github\cpp_coding\vector练习\vector练习\test.cpp(202): error C2110: “+”: 不能添加两个指针
+     1>g:\github\cpp_coding\vector练习\vector练习\test.cpp(202): error C2664: “std::vector<int,std::allocator<_Ty>>::vector(std::initializer_list<int>,const std::allocator<_Ty> &)”: 无法将参数 1 从“int [4]”转换为“const std::allocator<_Ty> &”
+                 with
+                 [
+                     _Ty=int
+                 ]
+                 原因如下:  无法从“int [4]”转换为“const std::allocator<_Ty>”
+                 with
+                 [
+                     _Ty=int
+                 ]
+                 无构造函数可以接受源类型，或构造函数重载决策不明确
+     1>已完成生成项目“G:\github\CPP_coding\vector练习\vector练习\vector练习.vcxproj”(Build 个目标)的操作 - 失败。
 
-生成成功。
+生成失败。
 
-已用时间 00:00:01.17
+已用时间 00:00:04.15
