@@ -1,6 +1,8 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include<iostream>
 #include<list>
+#include<vector>
+#include<stdlib.h>
 using namespace std;
 
 //int main()
@@ -57,3 +59,72 @@ using namespace std;
 //	return 0;
 //}
 
+
+void PrintList(list<int>& l)
+{
+	for (auto& e : l)
+		cout << e << " ";
+	cout << endl;
+}
+
+void TestList1()
+{
+	int array[] = { 1, 2, 3 };
+	list<int> L(array, array + sizeof(array) / sizeof(array[0]));
+	L.push_back(4);
+	L.push_front(0);
+	PrintList(L);
+
+	L.pop_back();
+	L.pop_front();
+	PrintList(L);
+}
+
+void TestList3()
+{
+	int array1[] = { 1, 2, 3 };
+	list<int> L(array1, array1 + sizeof(array1) / sizeof(array1[0]));
+	//获取链表中的第二个节点
+	auto pos = ++L.begin();
+	cout << *pos << endl;
+	//在pos前插入值为4的元素
+	L.insert(pos, 4);
+	PrintList(L);
+	//在pos前插入5个值为5的元素
+	L.insert(pos, 5, 5);
+	PrintList(L);
+	//在pos前插入[v.begin(),v.end]区间中的元素
+	vector<int> v{ 7, 8, 9 };
+	L.insert(pos, v.begin(), v.end());
+	PrintList(L);
+
+	//删除pos位置上的元素
+	L.erase(pos);
+	PrintList(L);
+	//删除list中[begin,end)区间中的元素，删除list中所有的元素
+	L.erase(L.begin(), L.end());
+	PrintList(L);
+}
+
+//void TestList4()
+//{
+//	//构造list
+//	int array1[] = { 1, 2, 3 };
+//	list<int> l1(array1, array1 + sizeof(array1) / sizeof(array1[0]));
+//	PrintList(l1);
+//
+//	//交换l1和l2中的元素
+//	l1.swap(l2);
+//	PrintList(l1);
+//	PrintList(l2);
+//
+//}
+
+int main()
+{
+	//TestList1();
+	TestList3();
+	system("pause");
+	return 0;
+
+}
