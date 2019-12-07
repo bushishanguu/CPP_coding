@@ -13,7 +13,7 @@ public:
 
 	Vector()//构造函数
 		:_start(nullptr)
-		, _finsh(nullptr)
+		, _finish(nullptr)
 		, _end0fStorage(nullptr)  //以配好的空间的结束位置
 	{}
 
@@ -36,9 +36,9 @@ public:
 	//析构函数
 	~Vector(){
 		if (_start){
-		delete[] _start;
-		_start = finish = _end0fStorage = nullptr;
-	    }
+			delete[] _start;
+			_start = _finish = _end0fStorage = nullptr;
+		}
 	}
 
 
@@ -67,8 +67,8 @@ public:
 			size_t newc = ((_start == nullptr) ? 1 : 2 * Capacity());
 			Reserve(newc);
 		}
-		*finish = val; //更新finish
-		++finish;
+		*_finish = val; //更新finish
+		++_finish;
 	}
 	//增容函数
 	void Reserve(size_t n){
@@ -77,14 +77,14 @@ public:
 
 			T* tmp = new T[n];//申请空间
 			if (_start){
-				for (int i = 0; i < sz; i++){
+				for (int i = 0; i<sz; i++){
 					tmp[i] = _start[i];
 				}
 				delete[] _start;
 			}
 			_start = tmp;//新空间赋值 
 			_finish = _start + sz;//更新长度和容量
-			__end0fStorage = _start + n;
+			_end0fStorage = _start + n;
 		}
 	}
 
@@ -109,7 +109,7 @@ public:
 	iterator end(){
 		return _finish;
 	}
-	 //const迭代器的功能
+	//const迭代器的功能
 	const_iterator begin() const{
 		return _start;
 	}
@@ -141,26 +141,115 @@ public:
 	}
 
 
+	//实现释放函数
+	iterator Erase(iterator pos){
+		assert(pos >= _start&& pos < _finish);
+		iterator begin = pos + 1;
+		//向前挪动元素
+		while (begin < _finish){
+			*(begin - 1) = *begin;
+			begin++;
+		}
+		--_finish;//更新_finish 的位置
+		return pos;
+	}
 
-
-
-
-
-
-
-
-
-
-
-
-
+	//重置空间的函数
+	void Resize(size_t n, const T& val = T()){
+		//判断所需空间和指定对象的大小关系
+		//如果不够 就进行增容
+		if (n <= Size()){
+			_finish = _start + n;
+		}
+		else{
+			if (n > Capacity())
+				Reserve(n);
+			while (_finish != _start + n){
+				*_finish = val;//给增加后的空间赋值
+				_finish++;
+			}
+		}
+	}
+private:
+	T* _start;
+	T* _finish;
+	T* _end0fStorage;
 
 };
 
+template <class T>
+void PrintVector(const Vector<T>& v){
+	for (int i = 0; i < v.Size(); i++){
+		cout << v[i] << " ";
+	}
+	cout << endl;
+}
 
-int main()
-{
-	//Vector<int> v;
+template <class T>
+void PrintVectorFor(const Vector<T>& v){
+	for (auto& e : v){
+		cout << e << " ";
+	}
+	cout << endl;
+}
+
+
+
+//测试用例来源网络 
+
+
+
+
+
+void testInsertErase(){
+	Vector<int> v;
+	v.PushBack(1);
+	v.PushBack(2);
+	v.PushBack(3);
+	v.PushBack(4);
+	v.Insert(v.end(), 5);
+	PrintVectorFor(v);
+	//删除所有偶数
+	Vector<int>::iterator vit = v.begin();
+	while (vit != v.end()){
+		if (*vit % 2 == 0){
+			vit = v.Erase(vit);
+			//接收Erase函数的返回值，防止迭代器失效
+		}
+		else
+			vit++;
+	}
+
+	PrintVectorFor(v);
+}
+
+
+void testResize(){
+	Vector<int> v;
+	v.PushBack(1);
+	v.PushBack(2);
+	v.PushBack(3);
+	v.PushBack(4);
+
+	v.Resize(3);
+	PrintVectorFor(v);
+}
+
+
+int main(){
+	Vector<int> v;
+	v.PushBack(1);
+	v.PushBack(1);
+	v.PushBack(1);
+	v.PushBack(1);
+	v.PushBack(1);
+	PrintVectorFor(v);
+	Vector<string> v1;
+	v1.PushBack("hello");
+	v1.PushBack(" world!");
+	PrintVectorFor(v1);
+	testInsertErase();
+	testResize();
 	system("pause");
 	return 0;
 }
