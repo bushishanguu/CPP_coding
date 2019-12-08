@@ -198,9 +198,6 @@ void PrintVectorFor(const Vector<T>& v){
 //²âÊÔÓÃÀıÀ´Ô´ÍøÂç 
 
 
-
-
-
 void testInsertErase(){
 	Vector<int> v;
 	v.PushBack(1);
@@ -252,4 +249,6 @@ int main(){
 	testResize();
 	system("pause");
 	return 0;
+
+
 }
