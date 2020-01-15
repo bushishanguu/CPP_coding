@@ -4,6 +4,8 @@
 using namespace std;
 template<class T,class Container=vector<T>>
 class Stack
+
+
 {
 public:
 	Stack()
