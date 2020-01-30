@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "搜索插入位置二分法（力扣）", "搜索插入位置二分法（力扣）\搜索插入位置二分法（力扣）.vcxproj", "{9F1E90AB-1AA7-4BAD-8D84-629541FC6C10}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9F1E90AB-1AA7-4BAD-8D84-629541FC6C10}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9F1E90AB-1AA7-4BAD-8D84-629541FC6C10}.Debug|Win32.Build.0 = Debug|Win32
+		{9F1E90AB-1AA7-4BAD-8D84-629541FC6C10}.Release|Win32.ActiveCfg = Release|Win32
+		{9F1E90AB-1AA7-4BAD-8D84-629541FC6C10}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
