@@ -65,6 +65,8 @@ public:
 };
 
 
+
+
 template<class Compareble>
 RedBlackTree<Compareble>::RedBlackTree(const Compareble & negInf)
 {
