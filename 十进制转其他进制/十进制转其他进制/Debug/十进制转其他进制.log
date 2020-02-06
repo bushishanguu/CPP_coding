@@ -1,0 +1,13 @@
+﻿生成启动时间为 2020/2/6 17:07:40。
+     1>项目“G:\C++上传文件夹\十进制转其他进制\十进制转其他进制\十进制转其他进制.vcxproj”在节点 2 上(Build 个目标)。
+     1>ClCompile:
+         E:\VS\VS安装地址\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt test.cpp
+         test.cpp
+     1>g:\c++上传文件夹\十进制转其他进制\十进制转其他进制\test.cpp(8): error C2057: 应输入常量表达式
+     1>g:\c++上传文件夹\十进制转其他进制\十进制转其他进制\test.cpp(8): error C2466: 不能分配常量大小为 0 的数组
+     1>g:\c++上传文件夹\十进制转其他进制\十进制转其他进制\test.cpp(8): error C2133: “B_num”: 未知的大小
+     1>已完成生成项目“G:\C++上传文件夹\十进制转其他进制\十进制转其他进制\十进制转其他进制.vcxproj”(Build 个目标)的操作 - 失败。
+
+生成失败。
+
+已用时间 00:00:01.56
