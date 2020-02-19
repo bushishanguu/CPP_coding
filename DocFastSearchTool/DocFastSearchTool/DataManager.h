@@ -29,7 +29,7 @@ private:
 };
 
 ///////////////////////////////////////////////////////////////////////
-//自动获取表结果类  
+//自动获取表结果类  资源的初始化即获取   自动
 class AutoGetResTable
 {
 public:
@@ -52,7 +52,8 @@ private:
 class DataManager
 {
 public:
-	DataManager();
+	static DataManager& CreateInstance();
+public:
 	~DataManager();
 public:
 	void InitSqlite();
@@ -64,8 +65,10 @@ public:
 	//向数据库删除文档
 	void DeleteDoc(const string &path, string doc);
 public:
-	//
 	void Search(const string &key, vector<pair<string, string>> &doc_path);
+	static void SplitHightLight(const string &str, const string &key, string &prefix, string &hightlight, string &suffix);
+private:
+	DataManager();
 private:
 	SqliteManager m_dbmgr;
 };

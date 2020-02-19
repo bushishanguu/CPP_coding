@@ -83,6 +83,13 @@ AutoGetResTable::~AutoGetResTable()
 }
 
 /////////////////////////////////////////////////////////////////////
+
+DataManager& DataManager::CreateInstance()
+{
+	static DataManager inst;
+	return inst;
+}
+
 DataManager::DataManager()
 {
 	m_dbmgr.Open(DOC_DB);
@@ -96,7 +103,7 @@ DataManager::~DataManager()
 void DataManager::InitSqlite()
 {
 	char sql[MAX_SQL_SIZE] = {0};
-	sprintf(sql,  "create table if not exists %s (id INTEGER PRIMARY KEY autoincrement, doc_path text, doc_name text)", DOC_TABLE);
+	sprintf(sql,  "create table if not exists %s (id INTEGER PRIMARY KEY autoincrement, doc_path text, doc_name text,doc_name_pinyin text, doc_name_initials text)", DOC_TABLE);
 	m_dbmgr.ExecuteSql(sql);
 }
 
@@ -125,7 +132,11 @@ void DataManager::GetDocs(const string &path, set<string>& docs)
 void DataManager::InsertDoc(const string &path, string doc)
 {
 	char sql[MAX_SQL_SIZE] = {0};
-	sprintf(sql, "insert into %s values(NULL, '%s', '%s')", DOC_TABLE, path.c_str(), doc.c_str());
+	string pinyin = ChineseConvertPinYinAllSpell(doc);
+	string initials = ChineseConvertPinYinInitials(doc);
+
+	sprintf(sql, "insert into %s values(NULL, '%s', '%s', '%s', '%s')",
+			DOC_TABLE, path.c_str(), doc.c_str(), pinyin.c_str(), initials.c_str());
 	m_dbmgr.ExecuteSql(sql);
 }
 
@@ -137,12 +148,12 @@ void DataManager::DeleteDoc(const string &path, string doc)
 	m_dbmgr.ExecuteSql(sql);
 
 	//递归删除子目录
-	
+	//C:\Users\baoso\Desktop\55班\test\阶段性考试试卷\my_dir
 	string doc_path = path;
 	doc_path += "\\";
-	
+	//C:\Users\baoso\Desktop\55班\test\阶段性考试试卷\my_dir\
 	doc_path += doc;
-	
+	//C:\Users\baoso\Desktop\55班\test\阶段性考试试卷\my_dir\AA
 	sprintf(sql, "delete from %s where doc_path like '%s%%'", DOC_TABLE, doc_path.c_str());
 	m_dbmgr.ExecuteSql(sql);
 }
@@ -150,18 +161,26 @@ void DataManager::DeleteDoc(const string &path, string doc)
 void DataManager::Search(const string &key, vector<pair<string, string>> &doc_path)
 {
 	char sql[MAX_SQL_SIZE] = {0};
-	//select dco_name, doc_path from doc_tb where doc_name like '%%s%';
-	sprintf(sql, "select doc_name, doc_path from %s where doc_name like '%%%s%%'",DOC_TABLE, key.c_str());
-
 	int row=0, col=0;
 	char **ppRet = 0;
+	
+	//科技   %keji%
+	string key_pinyin = "%";
+	key_pinyin += ChineseConvertPinYinAllSpell(key);
+	key_pinyin +="%";
+
+	//科技   %kj%
+	string key_initials = "%";
+	key_initials += ChineseConvertPinYinInitials(key);
+	key_initials += "%";
+
+	//select dco_name, doc_path from doc_tb where doc_name like '%%s%';
+	sprintf(sql, "select doc_name, doc_path from %s where doc_name_pinyin like '%s' or doc_name_initials like '%s'",
+			DOC_TABLE, key_pinyin.c_str(), key_initials.c_str());
 
 	//m_dbmgr.GetResTable(sql, row, col, ppRet);
 	AutoGetResTable at(&m_dbmgr, sql, row, col, ppRet);
 
-	//doc_name     doc_path
-	//  1.txt        c:\
-	//  2.txt        d:\ 
 
 	for(int i=1; i<=row; ++i)
 	{   										//name            path
@@ -169,4 +188,84 @@ void DataManager::Search(const string &key, vector<pair<string, string>> &doc_pa
 	}
 	
 	//sqlite3_free_table(ppRet);  //源代码级别
+}
+
+void DataManager::SplitHightLight(const string &str, const string &key, 
+								  string &prefix, string &hightlight, string &suffix)
+{
+	//str = "123比特科技,让就业更简单666"; 
+	//key = "就业";
+
+	string strlower = str;
+	string keylower = key;
+	transform(str.begin(), str.end(), strlower.begin(), tolower);
+	transform(key.begin(), key.end(), keylower.begin(), tolower);
+
+	//1 中文搜索, 如果匹配，直接分割
+	size_t pos = strlower.find(keylower);
+	if(pos != string::npos)
+	{
+		prefix = str.substr(0, pos);
+		hightlight = str.substr(pos, keylower.size());
+		suffix = str.substr(pos+keylower.size(), string::npos);
+		return;
+	}
+
+	//2 拼音全拼搜索，如果能匹配，则需要匹配分离的汉字和拼音
+	//str = "123比特科技,abc,让就业更简单666"; 
+	//str_pinyin = "123bitekeji,abc,rangjiuyegengjiandan666"
+	//key_pinyin = "jiuye"
+
+	string str_pinyin = ChineseConvertPinYinAllSpell(strlower);
+	string key_pinyin = ChineseConvertPinYinAllSpell(keylower);
+	pos = str_pinyin.find(key_pinyin);
+	if(pos != string::npos)
+	{
+		size_t str_index = 0;
+		size_t pinyin_index = 0;
+
+		size_t hightlight_index = 0;
+		size_t hightlight_len = 0;
+
+		while(str_index < strlower.size())
+		{
+			if(pinyin_index == pos)
+			{
+				hightlight_index = str_index;
+			}
+			if(pinyin_index >= pos + key_pinyin.size())
+			{
+				hightlight_len = str_index - hightlight_index + 1;
+				break;
+			}
+			//判断原字符串str_index下标所指是否为字符
+			if(strlower[str_index]>=0 && strlower[str_index]<=127)
+			{
+				//是字符
+				str_index++;
+				pinyin_index++;
+			}
+			else
+			{
+				//是汉字
+				string  word(strlower, str_index, 2); //提取一个汉字
+				string  subpinyin = ChineseConvertPinYinAllSpell(word);
+				str_index += 2;
+				pinyin_index += subpinyin.size();
+			}
+		}
+		prefix = str.substr(0, hightlight_index);
+		hightlight = str.substr(hightlight_index, hightlight_len);
+		suffix = str.substr(hightlight_index+hightlight_len, string::npos);
+		return;
+	}
+
+	//3 首字母搜索 如果能匹配，则需要匹配分离汉字和首字母
+	//留给同学们自行完成
+
+
+	//搜索失败，按照不高亮处理
+	prefix = str;
+	hightlight.clear();
+	suffix.clear();
 }

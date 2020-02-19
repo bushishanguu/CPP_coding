@@ -87,3 +87,12 @@ void SystemEnd();
 /////////////////////////////////////////////////////////////////////////////////////////////
 //系统功能函数模块
 void DirectoryList(const string &path, vector<string> &subfile, vector<string> &subdir);
+
+// 汉字转拼音全拼
+/* CSDN：http://blog.csdn.net/csnd_ayo */
+string ChineseConvertPinYinAllSpell(const string& dest_chinese);
+// 汉字转拼音首字母
+string ChineseConvertPinYinInitials(const string& name);
+
+// 颜色高亮显示一段字符串
+void ColourPrintf(const string  &str);

@@ -9,14 +9,14 @@ char *title = "文档快速搜索工具";
 void main()
 {
 	//创建扫描实例
-	const string path = "G:\\数据结构\\数据结构2018  ppt";
-	ScanManager sm;
-	sm.ScanDirectory(path);
+	const string path = "C:\\Users\\baoso\\Desktop\\55班\\test\\阶段性考试试卷";
+	//ScanManager sm;
+	ScanManager::CreateInstance(path).ScanDirectory(path);
 
 	//创建搜索实例
 	string key;
 	vector<pair<string, string>> doc_path; //用于保存搜索的结果
-	DataManager dm;
+	DataManager &dm = DataManager::CreateInstance();
 
 	int row = 5;
 	int count;
@@ -37,6 +37,8 @@ void main()
 			string &path = e.second;
 
 			SetCurPos(row+count++, 2);
+			//高亮处理
+			//
 			printf("%-30s%-85s\n", name.c_str(), path.c_str());
 		}
 		doc_path.clear();
@@ -48,10 +50,30 @@ void main()
 	SystemEnd();
 }
 
+
+/*
+void Test_HightLight()
+{
+	string str = "123比特科技,让就业更简单666"; 
+	//string key = "就业你好";
+	//string key = "keji";
+	string key = "jy";
+	string prefix, hightlight, suffix;
+	DataManager::SplitHightLight(str, key, prefix, hightlight, suffix);
+	cout<<prefix;
+	ColourPrintf(hightlight);
+	cout<<suffix<<endl;
+}
+void main()
+{
+	Test_HightLight();
+}
+
+
 /*
 void Test_DirectoryList()
 {
-	string path = "G:\\数据结构\\数据结构2018  ppt";
+	string path = "C:\\Users\\baoso\\Desktop\\55班\\test\\阶段性考试试卷";
 	vector<string> subfile, subdir;
 	DirectoryList(path, subfile, subdir);
 
@@ -67,7 +89,7 @@ void Test_DirectoryList()
 void Test_Search()
 {
 	//创建扫描实例
-	const string path = "G:\\数据结构\\数据结构2018  ppt";
+	const string path = "C:\\Users\\baoso\\Desktop\\55班\\test\\阶段性考试试卷";
 	ScanManager sm;
 	sm.ScanDirectory(path);
 

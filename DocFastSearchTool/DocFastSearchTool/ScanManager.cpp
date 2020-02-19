@@ -1,5 +1,26 @@
 #include"ScanManager.h"
 
+ScanManager::ScanManager()
+{}
+
+void ScanManager::StartScan(const string &path)
+{
+	while(1)
+	{
+		ScanDirectory(path);
+		this_thread::sleep_for(chrono::seconds(2)); //1 bug 效率损伤
+	}
+}
+ScanManager& ScanManager::CreateInstance(const string &path)
+{
+	static ScanManager inst;
+	//创建扫描线程
+	thread scan_thread(&StartScan, &inst, path);
+	//线程分离
+	scan_thread.detach();
+	return inst;
+}
+
 void ScanManager::ScanDirectory(const string &path)
 {
 	//1 扫描本地文件 并进行存储
@@ -9,6 +30,8 @@ void ScanManager::ScanDirectory(const string &path)
 	set<string> local_set;
 	local_set.insert(local_files.begin(), local_files.end());
 	local_set.insert(local_dirs.begin(), local_dirs.end());
+
+	DataManager &m_db = DataManager::CreateInstance();
 
 	//2 扫描数据库文件 并进行存储
 	set<string> db_set;
