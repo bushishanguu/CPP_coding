@@ -1,0 +1,13 @@
+﻿生成启动时间为 2020/3/1 17:04:41。
+     1>项目“G:\C++上传文件夹\红黑树\红黑树\红黑树.vcxproj”在节点 2 上(Build 个目标)。
+     1>ClCompile:
+         E:\VS\VS安装地址\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt test.cpp
+         test.cpp
+       Link:
+         E:\VS\VS安装地址\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"G:\C++上传文件夹\红黑树\Debug\红黑树.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"G:\C++上传文件夹\红黑树\Debug\红黑树.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"G:\C++上传文件夹\红黑树\Debug\红黑树.lib" /MACHINE:X86 Debug\test.obj
+         红黑树.vcxproj -> G:\C++上传文件夹\红黑树\Debug\红黑树.exe
+     1>已完成生成项目“G:\C++上传文件夹\红黑树\红黑树\红黑树.vcxproj”(Build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:02.67
